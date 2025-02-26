@@ -20,8 +20,31 @@
   </div>
 </template>
 
-<script>
-// TODO: Fetch websites data from API
+<!-- <script> -->
+<!-- // // TODO: Fetch websites data from API -->
+<script setup> 
+
+  // Vue3 可以用的宣告方式 !
+  import { ref, onMounted } from "vue";
+
+  const websites = ref([]); // get the "websites" value
+
+  async function fetchAPI() 
+  {
+    try 
+    {
+      const response = await fetch("https://mch-dev.userwei.com/api/websites/");
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      websites.value = await response.json(); // update websites Array value !
+      console.log("API:", websites.value);
+    } 
+    catch (error) 
+    {
+      console.error("GET data fail:", error);
+    }
+  }
+
+  onMounted(fetchAPI);
 </script>
 
 <style scoped>
@@ -40,14 +63,26 @@
 
 .websites-grid {
   /* TODO: Add styles for a responsive grid layout */
+  /* responsive grid layout 可以透過 flex-box 或 CSS grid 來達成 ! */
+  display: grid;
+  /* border-color: blue solid 10px; */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
 .website-card {
+  /* 不想讓文字一起對齊所以最後不用 flex-box */
+  /* sol : 用 margin:auto; display:block 的方式來讓他強制置中 ! */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* border: blue 3px solid; */
+  /* align-items: center; */
   background-color: #f9f9f9;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  margin: auto 0;
 }
 
 .website-card:hover {
@@ -55,12 +90,17 @@
 }
 
 .website-image {
-  width: 100%;
+  /* border: 3px solid red; */
+  /* width: 80%; */
+  width: 300px;
   height: 200px;
-  object-fit: cover;
+  margin: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .website-info {
+  /* border: 3px solid green; */
   padding: 20px;
 }
 

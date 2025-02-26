@@ -78,4 +78,24 @@ export default {
 .nav-link:hover {
   color: #ddd;
 }
+
+/* @media screen and (max-width: 600px) 
+{
+  .navbar-brand
+  {
+    flex-direction: column;
+  }
+  .navbar-brand .logo{
+    width : 5vw;
+    height : 5vw;
+  }
+  .navbar-nav ul
+  {
+    flex-direction: column;
+  }
+  .navbar-nav ul li
+  {
+    padding: 0.5rem 0.25rem;
+  } 
+}*/
 </style>
