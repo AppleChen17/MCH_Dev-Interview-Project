@@ -20,10 +20,8 @@
   </div>
 </template>
 
-<!-- <script> -->
 <!-- // // TODO: Fetch websites data from API -->
-<script setup> 
-
+<!-- <script setup> s
   // Vue3 可以用的宣告方式 !
   import { ref, onMounted } from "vue";
 
@@ -45,6 +43,30 @@
   }
 
   onMounted(fetchAPI);
+</script> -->
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    // 初始化 建立一個 websites 的變數 !
+    return {
+      websites: []
+    };
+  },
+  async mounted() {
+    try 
+    {
+      const response = await axios.get("https://mch-dev.userwei.com/api/websites/");
+      this.websites = response.data;
+    } 
+    catch (error) 
+    {
+      console.error("Failed to get the data:", error);
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -92,6 +114,7 @@
 .website-image {
   /* border: 3px solid red; */
   /* width: 80%; */
+  padding: 2rem 1rem;
   width: 300px;
   height: 200px;
   margin: auto;
